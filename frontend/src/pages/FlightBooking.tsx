@@ -189,7 +189,7 @@ export default function FlightBooking() {
         transport: "flight",
         accommodation: "hotel",
         interests: ["culture", "photography", "food"],
-        notes: `Velox Flight: ${selectedFlight.airline} ${selectedFlight.flightNumber} | Seats: ${selectedSeats.join(", ")} | Booking Ref: ${bookingRef}`,
+        notes: `Flight: ${selectedFlight.airline} ${selectedFlight.flightNumber} | Seats: ${selectedSeats.join(", ")} | Booking Ref: ${bookingRef}`,
       };
 
       const saved = await api.post<Trip>("/api/trips", payload);
@@ -204,14 +204,17 @@ export default function FlightBooking() {
 
   return (
     <div className="mx-auto min-h-screen max-w-[1440px] px-2 py-4 text-slate-100 sm:px-4 lg:px-6">
-      {/* ----------------- Top Header / Velox Navigation ----------------- */}
+      {/* ----------------- Top Header / MUSAFIQ Navigation ----------------- */}
       <header className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-white/10 bg-[#071513]/80 px-6 py-3.5 backdrop-blur-2xl">
         {/* Brand Logo */}
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-700 shadow-lg shadow-teal-900/40">
             <Plane className="h-5 w-5 text-white" />
           </div>
-          <span className="font-display text-2xl font-bold tracking-tight text-white">Velox</span>
+          <div className="flex items-center gap-1.5">
+            <span className="font-display text-2xl font-bold tracking-tight text-white">MUSA<span className="text-amber-400">FIQ</span></span>
+            <span className="rounded-md bg-amber-500/20 px-2 py-0.5 text-[10px] font-semibold text-amber-300">FLIGHTS</span>
+          </div>
         </div>
 
         {/* Center Nav Pills */}
@@ -776,7 +779,7 @@ export default function FlightBooking() {
               <div className="space-y-5">
                 <div className="flex items-center justify-between border-b border-white/10 pb-4">
                   <div>
-                    <h3 className="font-display text-2xl font-bold text-white">Velox Secure Checkout</h3>
+                    <h3 className="font-display text-2xl font-bold text-white">MUSAFIQ Secure Checkout</h3>
                     <p className="text-xs text-slate-400">Flight {selectedFlight.flightNumber} • Seats: {selectedSeats.join(", ")}</p>
                   </div>
                   <button onClick={() => setCheckoutOpen(false)} className="rounded-full p-2 text-slate-400 hover:text-white">
@@ -887,7 +890,7 @@ export default function FlightBooking() {
                   <div className="absolute inset-0 animate-spin rounded-full border-4 border-t-emerald-400" />
                 </div>
                 <h4 className="font-display text-xl font-bold text-white">Authorizing Payment...</h4>
-                <p className="text-xs text-slate-400">Assigning seats {selectedSeats.join(", ")} on Velox Airlines...</p>
+                <p className="text-xs text-slate-400">Assigning seats {selectedSeats.join(", ")} on {selectedFlight.airline}...</p>
               </div>
             )}
 
@@ -965,7 +968,7 @@ export default function FlightBooking() {
             {/* Boarding pass top banner */}
             <div className="flex items-center justify-between bg-gradient-to-r from-teal-700 to-emerald-900 px-6 py-3 text-white">
               <div className="flex items-center gap-2 font-display text-lg font-bold">
-                <Plane className="h-5 w-5" /> Velox Airlines Boarding Pass
+                <Plane className="h-5 w-5" /> MUSAFIQ Digital Boarding Pass
               </div>
               <span className="text-xs font-mono font-bold tracking-widest">{bookingRef}</span>
             </div>

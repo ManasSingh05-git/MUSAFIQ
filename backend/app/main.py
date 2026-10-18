@@ -20,10 +20,9 @@ async def lifespan(_app: FastAPI):
 
 
 app = FastAPI(
-    title="TourPlan AI API",
+    title="MUSAFIQ AI API",
     version="1.0.0",
-    description="Smart travel and trip planning. Prices are indicative estimates from sample data. "
-                "This service plans trips; it does not book anything.",
+    description="Intelligent travel, tour planning and flight booking companion.",
     lifespan=lifespan,
 )
 

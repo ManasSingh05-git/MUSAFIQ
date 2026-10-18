@@ -10,7 +10,7 @@ const NAV = [
   { to: "/discover", label: "Discover" },
   { to: "/trips", label: "My Trips" },
   { to: "/trips/new", label: "New Trip" },
-  { to: "/flights", label: "Flights (Velox)" },
+  { to: "/flights", label: "Flights" },
   { to: "/map", label: "Maps" },
 ];
 
@@ -44,8 +44,9 @@ export function Layout() {
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-[300] focus:rounded-lg focus:bg-amber-accent focus:px-3 focus:py-2 focus:text-forest-950">Skip to content</a>
       <header className="sticky top-0 z-50 px-3 pt-3 sm:px-6">
         <div className="glass mx-auto flex max-w-7xl items-center gap-3 rounded-full px-4 py-2.5">
-          <TLink to={user ? "/dashboard" : "/"} className="flex items-center gap-2 font-display text-xl">
-            <Plane className="h-5 w-5 text-amber-accent" aria-hidden="true" /> Tour<span className="text-amber-accent">Plan</span>
+          <TLink to={user ? "/dashboard" : "/"} className="flex items-center gap-2 font-display text-xl font-black tracking-wider">
+            <Plane className="h-5 w-5 text-[#ff6b2b]" aria-hidden="true" />
+            <span className="text-white">MUSA<span className="text-amber-accent">FIQ</span></span>
           </TLink>
           <nav aria-label="Main" className="ml-4 hidden items-center gap-1 lg:flex">
             {NAV.map((n) => (
@@ -96,7 +97,7 @@ export function Layout() {
       </header>
       <main id="main" className="mx-auto max-w-7xl px-3 pb-24 pt-6 sm:px-6"><Outlet /></main>
       <footer className="mx-auto max-w-7xl px-6 pb-10 text-center text-xs text-cream/50">
-        TourPlan AI is a college Software Engineering Lab project. Prices and recommendations use sample data and are indicative only; nothing here books travel.
+        MUSAFIQ AI — Intelligent Travel &amp; Tour Booking Companion.
       </footer>
       <ChatWidget />
       <PlaneTransition />

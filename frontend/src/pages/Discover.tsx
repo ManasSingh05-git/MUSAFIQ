@@ -355,7 +355,7 @@ export default function Discover() {
               Showing <strong className="text-white">{filteredPackages.length}</strong> all-inclusive tour package(s)
             </p>
             <span className="text-xs text-teal-400 font-semibold">
-              ✓ Verified Inclusions &amp; Direct Velox Flight Connect
+              ✓ Verified Inclusions &amp; Direct Flight Connect
             </span>
           </div>
 

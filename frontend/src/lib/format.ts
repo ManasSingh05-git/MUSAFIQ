@@ -49,7 +49,7 @@ export function tripShareText(t: { title: string; start_city: string; start_date
     lines.push(`Day ${d.day_number}: ${d.title}`);
     d.activities.forEach((a) => lines.push(`  - ${a.slot}: ${a.title}`));
   });
-  lines.push("", `Estimated total: ${inr(total)} (indicative estimate, not a booking)`, "Planned with TourPlan AI");
+  lines.push("", `Estimated total: ${inr(total)} (indicative estimate)`, "Planned with MUSAFIQ AI");
   return lines.join("\n");
 }
 

@@ -39,8 +39,8 @@ export default function Landing() {
             Your Next Adventure, Intelligently Planned.
           </motion.h1>
           <p className="max-w-xl text-cream/75">
-            Tell TourPlan AI where you are starting, your budget and what you enjoy. Get ranked destinations with the reasons shown,
-            a day-by-day itinerary, a budget breakdown and a map. All prices are sample estimates; nothing is booked for you.
+            Tell MUSAFIQ AI where you are starting, your budget and what you enjoy. Get ranked destinations with the reasons shown,
+            a day-by-day itinerary, interactive flight booking and maps.
           </p>
           <form className="flex max-w-lg gap-2" role="search" onSubmit={(e) => { e.preventDefault(); go(`/discover?q=${encodeURIComponent(q)}`); }}>
             <label htmlFor="hero-search" className="sr-only">Search destinations</label>

@@ -329,7 +329,7 @@ export default function NewTrip() {
                   }}
                   className="flex items-center justify-center gap-2 w-full rounded-2xl bg-gradient-to-r from-orange-500 to-[#ff6b2b] py-3.5 text-center font-display text-sm font-bold text-white shadow-lg shadow-orange-950/40 hover:brightness-110 active:scale-[0.98]"
                 >
-                  <Plane className="h-4 w-4" /> Continue to Flight Booking & Seat Selection (Velox) &gt;&gt;
+                  <Plane className="h-4 w-4" /> Continue to Flight Booking & Seat Selection &gt;&gt;
                 </button>
               </div>
             ) : null}

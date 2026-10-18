@@ -50,7 +50,7 @@ export default function Login() {
         <button className="btn-primary w-full" type="submit" disabled={busy}>{busy && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}{mode === "login" ? "Log in" : "Sign up"}</button>
         {mode === "login" && (
           <button type="button" className="btn-ghost w-full" onClick={() => { setEmail("demo@tourplan.ai"); setPassword("demo12345"); }}>
-            Fill demo account (demo@tourplan.ai)
+            Fill demo account (MUSAFIQ Demo)
           </button>
         )}
         <p className="text-center text-sm text-cream/70">

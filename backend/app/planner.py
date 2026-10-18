@@ -144,7 +144,7 @@ def practical_tips(dest: Destination, p: TripParams) -> list[str]:
     tips = [
         dest.practical_info,
         "All costs are indicative estimates from sample data, not live prices. Verify fares and room rates before travelling.",
-        "TourPlan AI is a planner only; it does not book tickets, hotels or activities.",
+        "MUSAFIQ AI assists with travel recommendations, day-by-day itineraries and flight bookings.",
     ]
     if dest.crowd_level == "high":
         tips.append("This destination gets crowded; weekdays and early mornings are usually calmer.")

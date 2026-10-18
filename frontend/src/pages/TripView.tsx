@@ -451,7 +451,7 @@ function FlightTicketTab({ trip }: { trip: Trip }) {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h2 className="font-display text-2xl font-bold">Confirmed Flight Tickets</h2>
-          <p className="text-xs text-cream/70">Velox Aero Digital Boarding Pass &amp; Aircraft Seat Reservation</p>
+          <p className="text-xs text-cream/70">MUSAFIQ Digital Boarding Pass &amp; Aircraft Seat Reservation</p>
         </div>
         <div className="flex items-center gap-2">
           <button onClick={() => window.print()} className="btn-ghost !py-2 text-xs">
@@ -461,7 +461,7 @@ function FlightTicketTab({ trip }: { trip: Trip }) {
             onClick={() => navigate(`/flights?from=${encodeURIComponent(trip.start_city)}&to=${encodeURIComponent(trip.destination_name || trip.title.replace("Trip to ", ""))}`)}
             className="btn-primary !py-2 text-xs"
           >
-            <Plane className="h-4 w-4 mr-1 inline" /> Open Velox Seat Visualizer
+            <Plane className="h-4 w-4 mr-1 inline" /> Open Seat Visualizer
           </button>
         </div>
       </div>
@@ -469,7 +469,7 @@ function FlightTicketTab({ trip }: { trip: Trip }) {
       <div className="mx-auto max-w-2xl overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-r from-[#102320] to-[#0a1815] shadow-2xl">
         <div className="flex items-center justify-between bg-gradient-to-r from-teal-700 to-emerald-900 px-6 py-3 text-white">
           <div className="flex items-center gap-2 font-display text-lg font-bold">
-            <Plane className="h-5 w-5" /> Velox Airlines E-Ticket
+            <Plane className="h-5 w-5" /> MUSAFIQ E-Ticket &amp; Boarding Pass
           </div>
           <span className="text-xs font-mono font-bold tracking-widest">{refCode}</span>
         </div>

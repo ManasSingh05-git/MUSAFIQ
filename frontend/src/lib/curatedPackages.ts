@@ -58,7 +58,7 @@ export const SIGNATURE_PACKAGES: CuratedPackage[] = [
       "Airport / Madgaon station pickup & drop",
     ],
     exclusions: [
-      "Airfare / Train tickets (Bookable via Velox Aero)",
+      "Airfare / Train tickets (Bookable via MUSAFIQ Flights)",
       "Personal water sports fees at Baga",
       "Alcohol & personal dining expenses",
     ],
@@ -119,7 +119,7 @@ export const SIGNATURE_PACKAGES: CuratedPackage[] = [
       "Sim Card 25GB with international calling",
     ],
     exclusions: [
-      "International flights (Bookable via Velox Aero)",
+      "International flights (Bookable via MUSAFIQ Flights)",
       "Personal spa treatments & souvenirs",
       "Visa on Arrival (approx $35 payable at DPS airport)",
     ],
@@ -317,7 +317,7 @@ export const SIGNATURE_PACKAGES: CuratedPackage[] = [
       "Mughal Gardens (Shalimar & Nishat) entry passes",
     ],
     exclusions: [
-      "Flight to Srinagar (SXR) (Available on Velox Aero)",
+      "Flight to Srinagar (SXR) (Available on MUSAFIQ Flights)",
       "Pony / horse ride charges in Gulmarg",
       "Personal Kashmiri saffron and walnut shopping",
     ],
@@ -385,7 +385,7 @@ export const SIGNATURE_PACKAGES: CuratedPackage[] = [
       "Lake Lucerne Vintage Steamboat Cruise",
     ],
     exclusions: [
-      "International flights (Bookable via Velox Aero)",
+      "International flights (Bookable via MUSAFIQ Flights)",
       "Schengen Visa fee and insurance",
       "City tax payable at hotels (approx €4/night)",
     ],
@@ -464,7 +464,7 @@ export const SIGNATURE_PACKAGES: CuratedPackage[] = [
       "Roundtrip DXB Airport Private Transfers",
     ],
     exclusions: [
-      "Flights to DXB (Bookable via Velox Aero)",
+      "Flights to DXB (Bookable via MUSAFIQ Flights)",
       "Dubai Tourism Dirham fee ($4/night)",
       "Optional Quad bike / Dune buggy rental in desert",
     ],

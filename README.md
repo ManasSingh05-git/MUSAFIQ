@@ -1,7 +1,6 @@
-# TourPlan AI: Smart Travel & Trip Planning System
+# MUSAFIQ AI: Smart Travel, Trip Planning & Flight Booking System
 
-Software Engineering Lab project. Plans a trip from natural-language or form input: ranks destinations with a
-transparent score, builds an itinerary, estimates a budget, shows stops on a map and exports a PDF.
+Full-stack AI travel companion project. Plans a trip from natural-language or form input: ranks destinations with transparent scoring, builds day-by-day itineraries, interactive flight booking with dynamic multi-currency engine (₹ INR, $ USD, € EUR, AED, £ GBP), aircraft seat visualizer, budget estimator, and interactive maps.
 
 > **Verification status:** all source files were written in an environment that could not reach the pip/npm registries, so the backend, frontend and tests have **not been executed yet**. Only Python syntax checking was done. Run the commands below and paste real output into the report (section 25).
 
