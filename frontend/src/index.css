@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+html { scroll-behavior: smooth; }
+body {
+  @apply bg-forest-950 font-sans text-cream antialiased;
+  background-image:
+    radial-gradient(1200px 600px at 15% -10%, rgba(95, 143, 139, 0.18), transparent 60%),
+    linear-gradient(180deg, rgba(8, 20, 15, 0.58) 0%, rgba(13, 33, 26, 0.42) 40%, rgba(8, 20, 15, 0.78) 100%),
+    url('/images/bg-scenic.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+@layer components {
+  .glass {
+    @apply border border-white/10 bg-white/[0.07] shadow-glass backdrop-blur-xl;
+  }
+  .glass-strong {
+    @apply border border-white/15 bg-forest-900/70 shadow-glass backdrop-blur-2xl;
+  }
+  .card { @apply glass rounded-3xl; }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition
+      duration-200 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary { @apply btn bg-amber-accent text-forest-950 hover:brightness-110; }
+  .btn-ghost { @apply btn border border-white/20 bg-white/5 text-cream hover:bg-white/10; }
+  .btn-danger { @apply btn border border-coral-accent/60 bg-coral-accent/10 text-coral-accent hover:bg-coral-accent/20; }
+  .input {
+    @apply w-full rounded-xl border border-white/15 bg-forest-950/60 px-3.5 py-2.5 text-sm text-cream
+      placeholder:text-cream/40;
+  }
+  .label { @apply mb-1 block text-xs font-semibold uppercase tracking-wide text-cream/60; }
+  .chip { @apply inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs; }
+  .chip-active { @apply border-amber-accent bg-amber-accent/15 text-amber-accent; }
+  .skeleton {
+    @apply animate-shimmer rounded-xl bg-[length:200%_100%];
+    background-image: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.14) 50%, rgba(255,255,255,0.05) 75%);
+  }
+}
+
+/* visible keyboard focus everywhere */
+:focus-visible { outline: 2px solid #e9a24b; outline-offset: 2px; border-radius: 8px; }
+
+/* Leaflet: tint the OSM tiles toward the dark-forest theme and keep controls readable */
+.leaflet-container { background: #12302b; font-family: inherit; border-radius: inherit; }
+.tp-dark-tiles .leaflet-tile-pane { filter: brightness(0.72) saturate(0.7) hue-rotate(10deg); }
+.leaflet-popup-content-wrapper { @apply rounded-xl bg-forest-900 text-cream; }
+.leaflet-popup-tip { background: #0d211a; }
+.tp-marker { position: relative; width: 18px; height: 18px; }
+.tp-marker .dot { position: absolute; inset: 3px; border-radius: 9999px; background: #e9a24b; border: 2px solid #08140f; }
+.tp-marker .ring { position: absolute; inset: 0; border-radius: 9999px; background: rgba(233,162,75,.55); animation: pulseRing 1.8s ease-out infinite; }
+.tp-marker.sel .dot { background: #e8795f; }
+
+/* reduced motion: stop decorative animation, keep layout */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
