@@ -1,69 +1,73 @@
-import { Disc3, Music, Pause, Play, Volume2, VolumeX } from "lucide-react";
+import { Disc3, Pause, Play, Volume2, VolumeX } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 const STORAGE_KEY_PAUSED = "musafiq_bg_music_paused";
 const STORAGE_KEY_VOL = "musafiq_bg_music_vol";
-const DEFAULT_VOLUME = 0.25; // 25% volume (within user's 20-30% request)
+const DEFAULT_VOLUME = 0.25; // 25% subtle background volume
 
 export function MusicPlayer() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(() => {
     const saved = localStorage.getItem(STORAGE_KEY_VOL);
-    return saved ? Number(saved) : DEFAULT_VOLUME;
+    return saved !== null ? Number(saved) : DEFAULT_VOLUME;
   });
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const [showControls, setShowControls] = useState<boolean>(false);
-  const [userInteracted, setUserInteracted] = useState<boolean>(false);
 
-  // Initialize audio and handle autoplay policy
   useEffect(() => {
-    const audio = new Audio("/audio/musafir.mp3");
-    audio.loop = true;
-    audio.volume = isMuted ? 0 : volume;
+    // Connect to the preloaded audio tag in index.html, or fallback to new Audio
+    let audio = document.getElementById("musafiq-bg-audio") as HTMLAudioElement | null;
+    if (!audio) {
+      audio = new Audio("/audio/musafir.mp3");
+      audio.loop = true;
+      audio.preload = "auto";
+    }
     audioRef.current = audio;
 
-    const userManuallyPaused = localStorage.getItem(STORAGE_KEY_PAUSED) === "true";
+    audio.volume = isMuted ? 0 : volume;
 
-    const attemptPlay = () => {
-      if (userManuallyPaused) return;
+    // Check if audio is already playing from index.html script
+    if (!audio.paused) {
+      setIsPlaying(true);
+    } else {
+      // Attempt immediate play on component mount
       audio
         .play()
-        .then(() => {
-          setIsPlaying(true);
-        })
+        .then(() => setIsPlaying(true))
         .catch(() => {
-          // Autoplay blocked by browser policy until user interacts
           setIsPlaying(false);
         });
-    };
+    }
 
-    attemptPlay();
+    const onPlay = () => setIsPlaying(true);
+    const onPause = () => setIsPlaying(false);
+    audio.addEventListener("play", onPlay);
+    audio.addEventListener("pause", onPause);
 
-    // Browser interaction fallback: start music on first user click if not paused
-    const handleFirstInteraction = () => {
-      setUserInteracted(true);
-      if (localStorage.getItem(STORAGE_KEY_PAUSED) !== "true") {
+    // Browser interaction fallback: immediately trigger playback on first user motion/click
+    const handleGesture = () => {
+      if (audio && audio.paused && localStorage.getItem(STORAGE_KEY_PAUSED) !== "true") {
         audio
           .play()
           .then(() => setIsPlaying(true))
           .catch(() => {});
       }
-      window.removeEventListener("pointerdown", handleFirstInteraction);
-      window.removeEventListener("keydown", handleFirstInteraction);
+      ["click", "pointerdown", "keydown", "touchstart", "scroll"].forEach((ev) => {
+        window.removeEventListener(ev, handleGesture, true);
+      });
     };
 
-    window.addEventListener("pointerdown", handleFirstInteraction, { once: true });
-    window.addEventListener("keydown", handleFirstInteraction, { once: true });
-
-    audio.onplay = () => setIsPlaying(true);
-    audio.onpause = () => setIsPlaying(false);
+    ["click", "pointerdown", "keydown", "touchstart", "scroll"].forEach((ev) => {
+      window.addEventListener(ev, handleGesture, { once: true, capture: true });
+    });
 
     return () => {
-      window.removeEventListener("pointerdown", handleFirstInteraction);
-      window.removeEventListener("keydown", handleFirstInteraction);
-      audio.pause();
-      audio.src = "";
+      audio.removeEventListener("play", onPlay);
+      audio.removeEventListener("pause", onPause);
+      ["click", "pointerdown", "keydown", "touchstart", "scroll"].forEach((ev) => {
+        window.removeEventListener(ev, handleGesture, true);
+      });
     };
   }, []);
 
@@ -75,7 +79,7 @@ export function MusicPlayer() {
     localStorage.setItem(STORAGE_KEY_VOL, String(volume));
   }, [volume, isMuted]);
 
-  // Toggle play / stop
+  // Toggle Play / Stop
   const togglePlay = () => {
     if (!audioRef.current) return;
     if (isPlaying) {
@@ -83,12 +87,10 @@ export function MusicPlayer() {
       setIsPlaying(false);
       localStorage.setItem(STORAGE_KEY_PAUSED, "true");
     } else {
+      localStorage.setItem(STORAGE_KEY_PAUSED, "false");
       audioRef.current
         .play()
-        .then(() => {
-          setIsPlaying(true);
-          localStorage.setItem(STORAGE_KEY_PAUSED, "false");
-        })
+        .then(() => setIsPlaying(true))
         .catch((err) => console.log("Audio play error:", err));
     }
   };
@@ -110,7 +112,7 @@ export function MusicPlayer() {
       onMouseEnter={() => setShowControls(true)}
       onMouseLeave={() => setShowControls(false)}
     >
-      <div className="glass-strong flex items-center gap-3 rounded-full border border-white/20 bg-[#071714]/85 px-3 py-2 text-white shadow-2xl backdrop-blur-xl transition hover:border-amber-400/40">
+      <div className="glass-strong flex items-center gap-3 rounded-full border border-white/20 bg-[#071714]/90 px-3.5 py-2 text-white shadow-2xl backdrop-blur-xl transition hover:border-amber-400/40">
         {/* Animated Disc / Vinyl Icon */}
         <button
           onClick={togglePlay}
@@ -124,7 +126,6 @@ export function MusicPlayer() {
             }`}
             style={{ animationDuration: "3s" }}
           />
-          {/* Subtle equalizer bars overlay when playing */}
           {isPlaying && (
             <span className="absolute -bottom-1 flex items-end gap-0.5">
               <span className="h-2 w-0.5 animate-bounce bg-white rounded-full" style={{ animationDelay: "0ms" }} />
@@ -134,15 +135,21 @@ export function MusicPlayer() {
           )}
         </button>
 
-        {/* Track Title & Artist */}
+        {/* Track Title & Status */}
         <div className="flex flex-col pr-1 select-none cursor-pointer" onClick={() => setShowControls((v) => !v)}>
           <div className="flex items-center gap-1.5">
             <span className="text-xs font-bold tracking-wide text-white">Musafir Hoon Yaaron</span>
-            <span className="rounded bg-amber-500/20 px-1.5 py-0.2 text-[9px] font-semibold text-amber-300">
-              {isPlaying ? `${Math.round((isMuted ? 0 : volume) * 100)}%` : "Paused"}
+            <span
+              className={`rounded px-1.5 py-0.2 text-[9px] font-semibold ${
+                isPlaying
+                  ? "bg-emerald-500/20 text-emerald-300 animate-pulse"
+                  : "bg-amber-500/20 text-amber-300"
+              }`}
+            >
+              {isPlaying ? `${Math.round((isMuted ? 0 : volume) * 100)}% Playing` : "Paused (Click ▶)"}
             </span>
           </div>
-          <span className="text-[10px] text-cream/70">Kishore Kumar • MUSAFIQ Theme</span>
+          <span className="text-[10px] text-cream/70">Kishore Kumar • MUSAFIQ Ambiance</span>
         </div>
 
         {/* Play / Stop Button */}
@@ -151,10 +158,10 @@ export function MusicPlayer() {
           onClick={togglePlay}
           title={isPlaying ? "Stop Song" : "Play Song"}
           aria-label={isPlaying ? "Stop Song" : "Play Song"}
-          className={`flex h-8 w-8 items-center justify-center rounded-full transition ${
+          className={`flex h-8 w-8 items-center justify-center rounded-full transition shadow-sm ${
             isPlaying
-              ? "bg-coral-accent/20 text-coral-accent hover:bg-coral-accent/30"
-              : "bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30"
+              ? "bg-coral-accent/25 text-coral-accent hover:bg-coral-accent/40"
+              : "bg-emerald-500/30 text-emerald-300 hover:bg-emerald-500/50"
           }`}
         >
           {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 ml-0.5" />}

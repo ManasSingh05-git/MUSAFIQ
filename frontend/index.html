@@ -11,6 +11,31 @@
   </head>
   <body>
     <div id="root"></div>
+    <audio id="musafiq-bg-audio" src="/audio/musafir.mp3" loop preload="auto" playsinline></audio>
+    <script>
+      (function() {
+        try {
+          var a = document.getElementById('musafiq-bg-audio');
+          if (a) {
+            a.volume = 0.25;
+            var p = a.play();
+            if (p !== undefined) {
+              p.catch(function() {
+                var trigger = function() {
+                  a.play().catch(function() {});
+                  ['click', 'pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function(ev) {
+                    window.removeEventListener(ev, trigger, true);
+                  });
+                };
+                ['click', 'pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function(ev) {
+                  window.addEventListener(ev, trigger, { once: true, capture: true });
+                });
+              });
+            }
+          }
+        } catch(e) {}
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
