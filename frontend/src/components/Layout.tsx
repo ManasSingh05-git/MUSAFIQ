@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useAuth, useMotion } from "../lib/contexts";
 import { ChatWidget } from "./ChatWidget";
+import { MusicPlayer } from "./MusicPlayer";
 import { PlaneTransition } from "./PlaneTransition";
 
 const NAV = [
@@ -100,6 +101,7 @@ export function Layout() {
         MUSAFIQ AI — Intelligent Travel &amp; Tour Booking Companion.
       </footer>
       <ChatWidget />
+      <MusicPlayer />
       <PlaneTransition />
     </div>
   );
